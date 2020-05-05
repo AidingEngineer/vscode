@@ -1,0 +1,213 @@
+#include<iostream>
+#include<stdio.h>
+#include<conio.h>
+using namespace std;
+class LinkedListADT
+{
+	private:
+		struct node
+		{
+			int item;
+			int *next;
+		};
+		node *start;
+node* search(int data)
+{
+	node *t;
+	if(start = NULL)
+		return(NULL);	
+	t = start;
+	while(t != NULL)
+	{
+		if(t->item == data)
+			return(t);
+		t=t->next;
+	}
+	return(NULL);
+}
+	public:
+		LinkedListADT()
+		{
+			start=NULL;
+		}
+		int countItem();
+		void insertAtStart(int data);
+		void insertAtLast(int data);
+		void insertAfter(int currentData, int dat);
+		void deleteItemFromStart();
+		void editItem(int currentData, int newData);
+		int getFirstItem();
+		int getLastItem();
+		void viewList();
+		int searchItem(int data);
+		void sortItem();
+		~LinkedListADT()
+		{
+			while(start != NULL)
+			{
+				deleteItemFromStart();
+			}
+		}
+		
+};
+void LinkedListADT :: sortItem()
+{
+	node *t;
+	int x,r,i;
+	int n = countItem();
+	for(r=1; r<=n-1; r++)
+	{
+		t = start;
+		for(i=0; i<=n-1-r; i++)
+		{
+			if(t->item > t->next->item)
+			{
+				x = t->item;
+			    t->item = t->next->item;
+			    t->next->item = x;
+			}
+			t = t->next;
+		}
+	}
+}
+int LinkedListADT :: searchItem(int data)
+{
+	node *t;
+	t = start;
+	while(t->next != NULL)
+	{
+		if(t->item == data)
+		{
+			return(1);
+		}
+		t = t->next;
+	}
+	return(0);
+}
+void viewList()
+{
+	node *t;
+	t = start;
+	if(start == NULL)
+	{
+		cout<<"\n list is empty";
+	}
+	else
+	{
+		while(t->next != NULL)
+		{
+			cout<<" "<<t->item;
+			t = t->next;
+		}
+	}
+}
+int LinkedListADT :: getLastItem()
+{
+	node *t;
+	if(start == NULL)
+	{
+		cout<<"\n list is empty";
+		return(-1);
+	}
+	else
+	{
+		t = start;
+		while(t->next != NULL)
+		{
+			t = t->next;
+		}
+		return(t->item);
+	}
+	
+}
+int LinkedListADT :: getFirstItem()
+{
+	if(start == NULL)
+	{
+		return(-1);
+	}
+	else
+	{
+		return(start->item);
+	}
+}
+int LinkedListADT :: countItem()
+{
+	node *t;
+	int count = 0;
+	if(start == NULL)
+	{
+		return(count);
+	}
+	else
+	{
+		t = start;
+		while(t != NULL)
+		{
+			count++;
+			t = t->next;
+		}
+		return(count);
+	}
+}
+void LinkedListADT :: editItem(int currentData, int newData)
+{
+	node *t=search(currentItem);
+	if(t == NULL)
+	{
+		cout<<"\n no such value exit";
+	}
+	else
+	{
+		t->item = newData;
+	}
+}
+void LinkedListADT :: insertAfter(int currentData, int data)
+{
+    node *t=search(currentData);
+	if(t == NULL)
+	    cout<<"\n no such value exit in the list";
+	else
+	{
+		node *n;
+		n->item = data;
+		n->next = t->next;
+		t->next = n;
+	}	
+}
+void LinkedListADT :: insertAtStart(int data)
+{
+	node *n = new node;
+	n->item = data;
+	n->next = start;
+	start=n;
+	cout<<"\n data will be added at the start of the list";
+}
+void LinkedListADT :: insertAtLast(int data)
+{
+
+	node *t,*n = new node;
+    n->item = data;
+    n->next = NULL;
+    if(start == NULL)
+    {
+        start = n;
+        cout<<"\n data will be added at the enf of the list";
+    }
+    else
+    {
+    	t = start;
+    	while(t->next != NULL)
+    	{
+    		t = t->next;
+		}
+		t->next = n;
+		cout<<"\n data will be added at the end of the list";
+	}
+    
+}
+int main()
+{
+	LinkedListADT l1;
+	cout<<l1.getFirstItem();
+}
